@@ -21,7 +21,6 @@ data "aws_vpc" "default" {
 resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t3.nano"
-
   vpc_security_group_ids = [aws_security_group.blog.id]
 
   tags = {
@@ -43,7 +42,7 @@ resource "aws_security_group_rule" "blog_http_in" {
   protocol    = "tcp"
   cidr_blocks  = ["0.0.0.0/0"]
 
-  aws_security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog.id
 }
 
 resource "aws_security_group_rule" "blog_https_in" {
@@ -53,7 +52,7 @@ resource "aws_security_group_rule" "blog_https_in" {
   protocol    = "tcp"
   cidr_blocks  = ["0.0.0.0/0"]
 
-  aws_security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog.id
 }
 resource "aws_security_group_rule" "blog_everything_out" {
   type        = "engress"
@@ -62,5 +61,5 @@ resource "aws_security_group_rule" "blog_everything_out" {
   protocol    = "-1"
   cidr_blocks  = ["0.0.0.0/0"]
 
-  aws_security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog.id
 }
